@@ -1,0 +1,45 @@
+E:\FH\VSProjects\Labyrinth\Labyrinth\bin\Debug\Labyrinth.exe.config
+E:\FH\VSProjects\Labyrinth\Labyrinth\bin\Debug\Labyrinth.exe
+E:\FH\VSProjects\Labyrinth\Labyrinth\bin\Debug\Labyrinth.pdb
+E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Debug\Windows\About.g.cs
+E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Debug\Windows\FunctionDefiner.g.cs
+E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Debug\Windows\MainWindow.g.cs
+E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Debug\Windows\RenameDialog.g.cs
+E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Debug\Other\App.g.cs
+E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Debug\Labyrinth_MarkupCompile.cache
+E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Debug\Labyrinth_MarkupCompile.lref
+E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Debug\Windows\About.baml
+E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Debug\Windows\FunctionDefiner.baml
+E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Debug\Windows\MainWindow.baml
+E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Debug\Windows\RenameDialog.baml
+E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Debug\Labyrinth.g.resources
+E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Debug\Labyrinth.Properties.Resources.resources
+E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Debug\Labyrinth.csproj.GenerateResource.cache
+E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Debug\Labyrinth.exe
+E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Debug\Labyrinth.pdb
+E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Debug\Labyrinth.csprojAssemblyReference.cache
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\bin\Debug\Labyrinth.exe.config
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\bin\Debug\Labyrinth.exe
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\bin\Debug\Labyrinth.pdb
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\Labyrinth.csprojAssemblyReference.cache
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\Windows\About.g.cs
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\Windows\FunctionDefiner.g.cs
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\Windows\MainWindow.g.cs
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\Windows\RenameDialog.g.cs
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\Other\App.g.cs
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\Labyrinth_MarkupCompile.cache
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\Labyrinth_MarkupCompile.lref
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\Windows\About.baml
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\Windows\FunctionDefiner.baml
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\Windows\MainWindow.baml
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\Windows\RenameDialog.baml
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\Labyrinth.g.resources
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\Labyrinth.Properties.Resources.resources
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\Labyrinth.csproj.GenerateResource.cache
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\Labyrinth.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\Labyrinth.exe
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\Labyrinth.pdb
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\bin\Debug\System.ValueTuple.dll
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\bin\Debug\System.ValueTuple.xml
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\Labyrinth.csproj.CopyComplete
+C:\Users\User\Desktop\Labyrinth(финальная версия )\Source\Labyrinth\obj\Debug\GeneratedInternalTypeHelper.g.cs

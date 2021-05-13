@@ -1,0 +1,16 @@
+﻿<Window x:Class="Labyrinth.RenameDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Labyrinth"
+        mc:Ignorable="d"
+        Title="Переименование..." Height="161.905" Width="302.381" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Resources/NewFile.png">
+    <Grid>
+        <Button Content="OK" HorizontalAlignment="Left" Margin="200,92,0,0" VerticalAlignment="Top" Width="75" Click="ok_click"/>
+        <Button Content="Отмена" HorizontalAlignment="Left" Margin="108,92,0,0" VerticalAlignment="Top" Width="75" Click="cancel_click"/>
+        <Label Content="Новое имя:" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="tb" HorizontalAlignment="Left" Height="24" Margin="88,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="187" VerticalContentAlignment="Center"/>
+
+    </Grid>
+</Window>

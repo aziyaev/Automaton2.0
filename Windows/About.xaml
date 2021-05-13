@@ -1,0 +1,13 @@
+﻿<Window x:Class="Labyrinth.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Labyrinth"
+        mc:Ignorable="d" Height="126" Width="227" Title="О программе..." MinWidth="227" MinHeight="126" MaxWidth="227" MaxHeight="126" ResizeMode="NoResize" Icon="/Labyrinth;component/Resources/Icon.png" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label Content="Лабиринт @2021" HorizontalAlignment="Center" VerticalAlignment="Center" Height="64" Width="219" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,0,31"/>
+        <Label Content="ver. 1.2" HorizontalAlignment="Left" Margin="1,55,0,0" VerticalAlignment="Top" Width="210" HorizontalContentAlignment="Right" Height="42" VerticalContentAlignment="Center"/>
+
+    </Grid>
+</Window>

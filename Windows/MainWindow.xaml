@@ -1,0 +1,252 @@
+﻿<Window x:Class="Labyrinth.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Labyrinth" 
+        xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="   Лабиринт"
+        Icon="/Resources/MainIcon.png"
+        Background="#dcdcdc"
+        Height="450" Width="800" MinWidth="800" MinHeight="450">
+    <Grid>
+        <DockPanel LastChildFill="True">
+            <Menu Height="25" DockPanel.Dock="Top">
+                <MenuItem Header="Файл">
+                    <MenuItem Header="Новый" Click="create_click" />
+                    <MenuItem Header="Открыть" Click="open_click" />
+                    <Separator/>
+                    <MenuItem Header="Переименовать" Click="rename_click" />
+                    <Separator/>
+                    <MenuItem Header="Сохранить" Click="save_click" />
+                    <MenuItem Header="Сохранить как" Click="save_click" />
+                    <Separator/>
+                    <MenuItem Header="Закрыть файл" Click="close_tab_click" />
+                    <MenuItem Header="Выйти" Click="exit_click" />
+                </MenuItem>
+                <MenuItem Header="Правка" >
+                    <MenuItem Header="Закрасить белым" Click="buttonFillWhite_Click" />
+                    <MenuItem Header="Закрасить чёрным" Click="buttonFillDark_Click" />
+                    <Separator/>
+                    <MenuItem Header="Очистить" Click="clear_click" />
+                </MenuItem>
+                <MenuItem Header="Вид" >
+                    <MenuItem Header="Линии сетки" Click="button_switch_grid" />
+                </MenuItem>
+                <MenuItem Header="Инструменты" >
+                    <MenuItem Header="Карандаш" Click="buttonPen_Click" />
+                    <MenuItem Header="Ластик" Click="buttonEraser_Click" />
+                    <MenuItem Header="Заливка" Click="buttonFill_Click" />
+                    <Separator/>
+                    <MenuItem Header="Правая граница" Click="buttonFillRight_Click" />
+                    <MenuItem Header="Левая граница" Click="buttonFillLeft_Click" />
+                    <MenuItem Header="Верхняя граница" Click="buttonFillUp_Click" />
+                    <MenuItem Header="Нижняя граница" Click="buttonFillDown_Click" />
+                    <Separator/>
+                    <MenuItem Header="Линия" Click="buttonDrawLine_Click" />
+                    <MenuItem Header="Функция" Click="buttonSetFunction_Click" />
+                </MenuItem>
+                <MenuItem Header="Перемещения" >
+                    <MenuItem Header="Найти точку А" Click="findA_click" />
+                    <MenuItem Header="Найти точку Б" Click="findB_click" />
+                    <MenuItem Header="Вернуться в начало" Click="moveToCenter_click" />
+                </MenuItem>
+                <MenuItem Header="Масштаб" >
+                    <MenuItem Header="Приблизить" Click="button_zoom_in_click" />
+                    <MenuItem Header="Отдалить" Click="button_zoom_out_click" />
+                    <Separator/>
+                    <MenuItem Header="По умолчанию" Click="default_zoom_click" />
+                </MenuItem>
+                <MenuItem Header="Автомат" >
+                    <MenuItem Header="Установить автомат" Click="button_set_automaton_start"/>
+                    <MenuItem Header="Задать таблицу для автомата" Click="button_set_table"/>
+                </MenuItem>
+                <MenuItem Header="Поиск кратчайшего пути" >
+                    <MenuItem Header="Установить точку А" Click="SetA_Click" />
+                    <MenuItem Header="Установить точку Б" Click="SetB_Click" />
+                    <Separator/>
+                    <MenuItem Header="Найти путь" Click="button_pathfinding_click" />
+                </MenuItem>
+                <MenuItem Header="Справка" >
+                    <MenuItem Header="О программе" Click="about_click" />
+                </MenuItem>
+
+            </Menu>
+            <ToolBar ToolBarTray.IsLocked="True" Height="35" Background="#FFE7E7E7" DockPanel.Dock="Top">
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="create_click">
+                    <Image Source="/Resources/NewFile.png" OpacityMask="Black"/>
+                </Button>
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="save_click">
+                    <Image Source="/Resources/Save.png" OpacityMask="Black"/>
+                </Button>
+                <Separator/>
+                <Separator/>
+                <Button x:Name="buttonFillWhite" Background="{x:Null}" BorderBrush="{x:Null}" Click="buttonFillWhite_Click">
+                    <Image Source="/Resources/FillWhite.png" OpacityMask="Black"/>
+                </Button>
+                <Button x:Name="buttonFillDark" Background="{x:Null}" BorderBrush="{x:Null}" Click="buttonFillDark_Click">
+                    <Image Source="/Resources/FillBlack.png" OpacityMask="Black"/>
+                </Button>
+                <Button x:Name="buttonClear" Background="{x:Null}" BorderBrush="{x:Null}" Click="button_clear_click">
+                    <Image Source="/Labyrinth;component/Resources/Erase.png" OpacityMask="Black"/>
+                </Button>
+                <Separator/>
+                <Separator/>
+                <Button x:Name="buttonSetAutomatonStart" Background="{x:Null}" BorderBrush="{x:Null}" Click="button_set_automaton_start">
+                    <Image Source="/Resources/LetterA.png" OpacityMask="Black"/>
+                </Button>
+                <Button x:Name="ButtonStartAutomaton" Background="{x:Null}" BorderBrush="{x:Null}" Click="button_automaton_start">
+                    <Image Source="/Resources/ButtonPlay.png" OpacityMask="Black"/>
+                </Button>
+                <Separator/>
+                <Separator/>
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="button_set_table">
+                    <Image Source="/Resources/Table.png" OpacityMask="Black"/>
+                </Button>
+                <Separator/>
+                <Separator/>
+                <Button x:Name="buttonPen" Background="{x:Null}" BorderBrush="{x:Null}" Click="buttonPen_Click">
+                    <Image Source="/Resources/Pencil.png" OpacityMask="Black"/>
+                </Button>
+                <Button x:Name="buttonPencil" Background="{x:Null}" BorderBrush="{x:Null}" Click="buttonPencil_Click">
+                    <Image Source="/Labyrinth;component/Resources/Pen.png" OpacityMask="Black"/>
+                </Button>
+                <Button x:Name="buttonEraser" Background="{x:Null}" BorderBrush="{x:Null}" Click="buttonEraser_Click">
+                    <Image Source="/Resources/Eraser.png" OpacityMask="Black"/>
+                </Button>
+                <Button x:Name="buttonFill" Background="{x:Null}" BorderBrush="{x:Null}" Click="buttonFill_Click">
+                    <Image Source="/Resources/Fill.png" OpacityMask="Black"/>
+                </Button>
+                <Separator/>
+                <Separator/>
+                <Button x:Name="buttonFillUp" BorderBrush="{x:Null}" Click="buttonFillUp_Click" Background="{x:Null}">
+                    <Image Source="/Resources/Top.png" OpacityMask="Black"/>
+                </Button>
+                <Button x:Name="buttonFillDown" Background="{x:Null}" BorderBrush="{x:Null}" Click="buttonFillDown_Click">
+                    <Image Source="/Resources/Bottom.png" OpacityMask="Black"/>
+                </Button>
+                <Button x:Name="buttonFillLeft" Background="{x:Null}" BorderBrush="{x:Null}" Click="buttonFillLeft_Click">
+                    <Image Source="/Resources/Left.png" OpacityMask="Black"/>
+                </Button>
+                <Button x:Name="buttonFillRight" Background="{x:Null}" BorderBrush="{x:Null}" Click="buttonFillRight_Click">
+                    <Image Source="/Resources/Right.png" OpacityMask="Black"/>
+                </Button>
+                <Separator/>
+                <Separator/>
+                <Button x:Name="buttonDrawLine" Background="{x:Null}" BorderBrush="{x:Null}" Click="buttonDrawLine_Click">
+                    <Image Source="/Resources/Line.png" OpacityMask="Black" MouseLeftButtonDown="button_line_click"/>
+                </Button>
+                <Button x:Name="buttonSetFunction" Background="{x:Null}" BorderBrush="{x:Null}" Click="buttonSetFunction_Click">
+                    <Image Source="/Resources/Function.png" OpacityMask="Black"/>
+                </Button>
+                <Separator/>
+                <Separator/>
+                <Button Name="ButtonIncrease" Background="{x:Null}" BorderBrush="{x:Null}" Click="button_zoom_in_click">
+                    <Image Source="/Resources/ZoomP.png" OpacityMask="Black"/>
+                </Button>
+                <Button Name="ButtonReduce" Background="{x:Null}" BorderBrush="{x:Null}" Click="button_zoom_out_click">
+                    <Image Source="/Resources/ZoomN.png" OpacityMask="Black"/>
+                </Button>
+                <Separator/>
+                <Separator/>
+                <Separator/>
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="button_pathfinding_click">
+                    <Image Source="/Resources/FindPath.png" OpacityMask="Black"/>
+                </Button>
+            </ToolBar>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="208"/>
+                </Grid.ColumnDefinitions>
+                <StatusBar DockPanel.Dock="Bottom" Grid.Column="0">
+                    <StatusBarItem>
+                        <TextBlock x:Name="status_tb" />
+                    </StatusBarItem>
+                </StatusBar>
+                <TabControl x:Name="tab_control" Background="#dcdcdc" SelectionChanged="tabcontrol_selection_changed" Grid.Column="0">
+                    <TabItem Header="Лабиринт 1">
+                        <Grid x:Name="content" ShowGridLines="False">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0*"></RowDefinition>
+                                <RowDefinition Height="86*"></RowDefinition>
+                                <RowDefinition Height="17*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0*"></ColumnDefinition>
+                                <ColumnDefinition Width="755*"></ColumnDefinition>
+                                <ColumnDefinition Width="31*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid x:Name="canvas_elements" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="0,1,0,0" Grid.Row="1" Background="#FF72728B">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="61*"/>
+                                    <ColumnDefinition Width="725*"/>
+                                </Grid.ColumnDefinitions>
+                                <Canvas x:Name="canvas_container" Background="#FF72728B" Grid.ColumnSpan="2" Margin="0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Canvas x:Name="canvas" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF9999B8" RenderTransformOrigin="0.5,0.5" Width="730" Height="288" Canvas.Top="10" MouseMove="canvasMouseMove" MouseLeftButtonDown="canvasMouseLeftDown" SnapsToDevicePixels="True"/>
+                                </Canvas>
+                                <Rectangle Fill="#FFF0F0F0" Margin="0,-43,-12,0" RenderTransformOrigin="1,0.5" HorizontalAlignment="Right" Width="31" Grid.Column="1"/>
+                                <Rectangle Fill="#FFF0F0F0" HorizontalAlignment="Left" Width="42" RenderTransformOrigin="2.53,0.491" Margin="-15,-43,0,0"/>
+                                <Rectangle Fill="#FFF0F0F0" Margin="0,-43,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0" Height="43" Grid.ColumnSpan="3"/>
+                                <Rectangle RenderTransformOrigin="0.5,0.5" Stroke="#FFAAAAAA" StrokeThickness="2" Grid.ColumnSpan="2" Margin="27,16,28,0"/>
+                            </Grid>
+
+                            <ScrollBar x:Name="scrollV" Grid.Column="2" Grid.Row="1" Maximum="100" Margin="0,17,12,0" Width="17" HorizontalAlignment="Right" Background="White" BorderBrush="#FF636363" RenderTransformOrigin="1,0.5" />
+                            <ScrollBar x:Name="scrollH" Grid.Row="1" Orientation="Horizontal" Maximum="100" Grid.ColumnSpan="2" Margin="27,0,12,0" Grid.Column="1" RenderTransformOrigin="0.5,0.5" Height="17" VerticalAlignment="Top" Background="White" BorderBrush="#FF636363" >
+                                <ScrollBar.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="0.069"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </ScrollBar.RenderTransform>
+                            </ScrollBar>
+
+                            <Grid Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Margin="-8,0,-21,0"  >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Rectangle Fill="#FFF0F0F0" Margin="0,0,0,-27" RenderTransformOrigin="0.5,1" Grid.ColumnSpan="3" Stroke="#FFAAAAAA" StrokeThickness="2"/>
+
+                                <Grid Grid.Column="1" Grid.Row="0" Margin="27,10,27,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button x:Name="buttonUp" Grid.Column="1" Grid.Row="0" Background="#FFF6FFF4" BorderBrush="#FF8B8B8B" Click="buttonUp_Click">
+                                        <Image Source="/Resources/Up.png" Width="35" OpacityMask="Black"/>
+                                    </Button>
+                                    <Button x:Name="buttonDown" Grid.Column="1" Grid.Row="1" Background="#FFF6FFF4" BorderBrush="#FF8B8B8B" Click="buttonDown_Click">
+                                        <Image Source="/Resources/Down.png" Width="35" OpacityMask="Black"/>
+                                    </Button>
+                                    <Button x:Name="buttonLeft" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Background="#FFF6FFF4" BorderBrush="#FF8B8B8B" Click="buttonLeft_Click">
+                                        <Image Source="/Resources/LeftArrow.png" Height="35" OpacityMask="Black"/>
+                                    </Button>
+                                    <Button x:Name="buttonRight" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Background="#FFF6FFF4" BorderBrush="#FF8B8B8B" Click="buttonRight_Click">
+                                        <Image Source="/Resources/RightArrow.png" Height="35" OpacityMask="Black"/>
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="+" PreviewMouseLeftButtonDown="tabcontrol_plus_mouse_down"/>
+                </TabControl>
+
+                <DataGrid x:Name="automaton_table" MaxColumnWidth="50" AutoGenerateColumns="True" Grid.Column="1" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeRows="False" CanUserResizeColumns="False">
+                </DataGrid>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Window>
