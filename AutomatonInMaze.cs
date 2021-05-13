@@ -15,6 +15,25 @@ namespace Labyrinth
         public string Next_State { get; set; }
         //public string Predicates { get; set; }
 
+        // список точек, которые прошел автомат
+        private static List<Cell> automaton_path = new List<Cell>();
+        public static void automatonStart()
+        {
+            if (automaton_path != null)
+            {
+                foreach (var item in automaton_path)
+                {
+                    if (!item.isBlocked)
+                        item.clear();
+                }
 
+                automaton_path.Clear();
+            }
+
+            if (Cell.AUTOMATON_START == null)
+                return;
+
+            
+        }
     }
 }

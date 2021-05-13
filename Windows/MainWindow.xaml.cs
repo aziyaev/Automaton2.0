@@ -56,6 +56,8 @@ namespace Labyrinth
             canvas.Height = height;
 
             setCanvasPosition(-width / 2, -height / 2);
+
+            //set_table_inf();
         }
 
         //установить текущую позицию области рисования в [x, y]
@@ -492,7 +494,6 @@ namespace Labyrinth
 
         private void button_set_table(object sender, RoutedEventArgs e)
         {
-            set_table_inf();
             // set table automaton
         }
 
@@ -699,8 +700,7 @@ namespace Labyrinth
         {
             List<MainWindow> tableList = new List<MainWindow>
             {
-                new MainWindow {Input_Single = "w", Current_State = "q2", Output_Single="e", Next_State="q4"},
-                new MainWindow {Input_Single = "s", Current_State = "q2", Output_Single="e", Next_State="q4"}
+                new MainWindow {Input_Single = "nwse", Current_State = "q1", Output_Single="n", Next_State="q1"}
             };
 
             automaton_table.ItemsSource = tableList;

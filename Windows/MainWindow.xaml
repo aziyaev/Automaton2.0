@@ -157,15 +157,16 @@
             </ToolBar>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="177*" />
+                    <ColumnDefinition Width="407*"/>
                     <ColumnDefinition Width="208"/>
                 </Grid.ColumnDefinitions>
-                <StatusBar DockPanel.Dock="Bottom" Grid.Column="0">
+                <StatusBar Grid.Column="0" Grid.ColumnSpan="2">
                     <StatusBarItem>
                         <TextBlock x:Name="status_tb" />
                     </StatusBarItem>
                 </StatusBar>
-                <TabControl x:Name="tab_control" Background="#dcdcdc" SelectionChanged="tabcontrol_selection_changed" Grid.Column="0">
+                <TabControl x:Name="tab_control" Background="#dcdcdc" SelectionChanged="tabcontrol_selection_changed" Grid.Column="0" Grid.ColumnSpan="2">
                     <TabItem Header="Лабиринт 1">
                         <Grid x:Name="content" ShowGridLines="False">
                             <Grid.RowDefinitions>
@@ -225,10 +226,10 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Button x:Name="buttonUp" Grid.Column="1" Grid.Row="0" Background="#FFF6FFF4" BorderBrush="#FF8B8B8B" Click="buttonUp_Click">
+                                    <Button x:Name="buttonUp" Grid.Column="1" Grid.Row="0" Background="#FFF6FFF4" BorderBrush="#FF8B8B8B" Click="buttonDown_Click">
                                         <Image Source="/Resources/Up.png" Width="35" OpacityMask="Black"/>
                                     </Button>
-                                    <Button x:Name="buttonDown" Grid.Column="1" Grid.Row="1" Background="#FFF6FFF4" BorderBrush="#FF8B8B8B" Click="buttonDown_Click">
+                                    <Button x:Name="buttonDown" Grid.Column="1" Grid.Row="1" Background="#FFF6FFF4" BorderBrush="#FF8B8B8B" Click="buttonUp_Click">
                                         <Image Source="/Resources/Down.png" Width="35" OpacityMask="Black"/>
                                     </Button>
                                     <Button x:Name="buttonLeft" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Background="#FFF6FFF4" BorderBrush="#FF8B8B8B" Click="buttonLeft_Click">
@@ -244,8 +245,25 @@
                     <TabItem Header="+" PreviewMouseLeftButtonDown="tabcontrol_plus_mouse_down"/>
                 </TabControl>
 
-                <DataGrid x:Name="automaton_table" MaxColumnWidth="50" AutoGenerateColumns="True" Grid.Column="1" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeRows="False" CanUserResizeColumns="False">
-                </DataGrid>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <DataGrid x:Name="automaton_table" Grid.Row="0" MaxColumnWidth="50" AutoGenerateColumns="True" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeRows="False" CanUserResizeColumns="False" ItemsSource="{DynamicResource ResourceKey=temp}">
+                        <DataGrid.Resources>
+                            <col:ArrayList x:Key="temp">
+                                <local:AutomatonInMaze Input_Single="nwse" Current_State="q1" Output_Single="n" Next_State="q1"/>
+                            </col:ArrayList>
+                        </DataGrid.Resources>
+                    </DataGrid>
+
+                    <Button Grid.Row="1" Background="GhostWhite" Click="button_set_table">
+                        <TextBlock FontSize="20">
+                            Считать таблицу
+                        </TextBlock>
+                    </Button>
+                </Grid>
             </Grid>
         </DockPanel>
     </Grid>
