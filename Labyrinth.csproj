@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Labyrinth</RootNamespace>
     <AssemblyName>Labyrinth</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -61,7 +61,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -83,6 +83,9 @@
     </ApplicationDefinition>
     <Compile Include="AutomatonInMaze.cs" />
     <Compile Include="ChessMazeInformation.cs" />
+    <Compile Include="CommandModel.cs" />
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="InputValidationRule.cs" />
     <Compile Include="Windows\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
@@ -95,6 +98,9 @@
     <Compile Include="PathFinding.cs" />
     <Compile Include="Windows\RenameDialog.xaml.cs">
       <DependentUpon>RenameDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TableWindow.xaml.cs">
+      <DependentUpon>TableWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Windows\About.xaml">
       <SubType>Designer</SubType>
@@ -120,6 +126,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\TableWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -139,14 +149,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Other\app.config" />
     <None Include="Other\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Other\App.config" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\MainIcon.png" />
@@ -234,6 +242,23 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\AbstractMachine-master\AbstractMachine-master\AbstractMachine\AbstractMachine.csproj">
+      <Project>{059ec370-2690-49fb-ad39-e3813f002fc6}</Project>
+      <Name>AbstractMachine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ButtonStop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ButtonMinus.png" />
+    <Resource Include="Resources\ButtonPlus.png" />
+    <Resource Include="Resources\ButtonStep.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ButtonSpeed.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

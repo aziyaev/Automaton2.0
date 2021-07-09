@@ -1,13 +1,21 @@
-﻿using System;
+﻿using Labyrinth.Windows;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using Labyrinth;
+using static Cell;
+using AbstractMachine;
+using System.Windows.Media.Animation;
 
 namespace Labyrinth
 {
@@ -24,13 +32,13 @@ namespace Labyrinth
         //текущее положение области рисования
         private int canvas_shift_x;
         private int canvas_shift_y;
-        
+
         //размеры области рисования
         private int width, height;
 
         //шаг смещения области рисования при перемещении
         private int shift_step = 24;
-        
+
         //количество созданных за сессию вкладок
         //нужно для имени вкладок
         private int tab_count = 1;
@@ -40,6 +48,20 @@ namespace Labyrinth
 
         //последняя клеточка, над которой пролетала мышь
         private Cell lastHoveredCell;
+
+        private readonly BackgroundWorker start_automaton = new BackgroundWorker();
+
+        private readonly BackgroundWorker start_all_automatons = new BackgroundWorker();
+
+        private TableWindow tableWindow { get; set; }
+
+        private RadioButton currentRadioButton = new RadioButton();
+
+        private int currentSelectedAutomaton;
+
+        public static Dictionary<int, TableWindow> TableWindows = new Dictionary<int, TableWindow>();
+
+        public static Dictionary<int, Brush> AutomatonBrushes = new Dictionary<int, Brush>();
 
         public MainWindow()
         {
@@ -56,8 +78,25 @@ namespace Labyrinth
             canvas.Height = height;
 
             setCanvasPosition(-width / 2, -height / 2);
+            
+            RadioButton button = AddAutomatonButton();
+            AutomatonStackPanel.Children.Add(button);
 
-            //set_table_inf();
+            start_automaton.DoWork += AutomatonRun;
+            start_all_automatons.DoWork += AllAutomatonRun;
+        }
+
+        public void MainWindowCanceled(object sender, CancelEventArgs e)
+        {
+            List<TableWindow> Inquisition = new List<TableWindow>();
+            foreach(KeyValuePair<int, TableWindow> table in TableWindows)
+            {
+                Inquisition.Add(table.Value);   
+            }
+            foreach(TableWindow table in Inquisition)
+            {
+                table.Close();
+            }
         }
 
         //установить текущую позицию области рисования в [x, y]
@@ -352,8 +391,12 @@ namespace Labyrinth
                     currentCell.setPoint(Cell.PointType.B);
                     break;
                 case Main.BrushType.SET_AUTOMATON:
-                    currentCell.setPoint(Cell.PointType.AUTOMATON_START);
-                    break;
+                    {
+                        if (AutomatonInMaze.AUTOMATONS_CURRENT_CELL.ContainsKey(AutomatonInMaze.SELECTED_AUTOMATON))
+                            AutomatonInMaze.AUTOMATONS_CURRENT_CELL.Remove(AutomatonInMaze.SELECTED_AUTOMATON);
+                        currentCell.setPoint(Cell.PointType.AUTOMATON_START, AutomatonInMaze.SELECTED_AUTOMATON);
+                        break;
+                    }
                 case Main.BrushType.LINE:
                     Main.line(currentCell);
                     break;
@@ -490,21 +533,6 @@ namespace Labyrinth
         private void button_line_click(object sender, MouseButtonEventArgs e)
         {
             Main.brushType = Main.BrushType.LINE;
-        }
-
-        private void button_set_table(object sender, RoutedEventArgs e)
-        {
-            // set table automaton
-        }
-
-        private void button_automaton_start(object sender, RoutedEventArgs e)
-        {
-            //start automaton
-        }
-
-        private void button_set_automaton_start(object sender, RoutedEventArgs e)
-        {
-            Main.brushType = Main.BrushType.SET_AUTOMATON;
         }
 
         private void button_pathfinding_click(object sender, RoutedEventArgs e)
@@ -656,6 +684,289 @@ namespace Labyrinth
             }
         }
 
+        // Методы для автомата
+
+        private void button_clear_automaton_path(object sender, RoutedEventArgs e)
+        {
+            clearAutomatonPath(AutomatonInMaze.SELECTED_AUTOMATON);
+        }
+
+        private void button_clear_all_automaton_path(object sender, RoutedEventArgs e)
+        {
+            foreach(KeyValuePair<int, List<Cell>> automaton in AutomatonInMaze.AUTOMATONS_PATH)
+            {
+                clearAutomatonPath(automaton.Key);
+            }
+        }
+
+        private void button_add_automaton_click(object sender, RoutedEventArgs e)
+        {
+            RadioButton button = AddAutomatonButton();
+            AutomatonStackPanel.Children.Add(button);
+        }
+
+        private void button_remove_automaton_click(object sender, RoutedEventArgs e)
+        {
+            if (currentRadioButton != null)
+            {
+                AutomatonStackPanel.Children.Remove(currentRadioButton);
+                AutomatonInMaze.AUTOMATONS_COUNT.Remove(AutomatonInMaze.SELECTED_AUTOMATON);
+                AutomatonInMaze.AUTOMATON_SPEED.Remove(AutomatonInMaze.SELECTED_AUTOMATON);
+                AutomatonInMaze.SELECTED_AUTOMATON = 0;
+            }
+        }
+
+        private void radiobutton_checked(object sender, RoutedEventArgs e)
+        {
+            currentRadioButton = (RadioButton)sender;
+            AutomatonInMaze.SELECTED_AUTOMATON = int.Parse(currentRadioButton.Tag.ToString());
+        }
+
+        private void button_show_automaton_table(object sender, RoutedEventArgs e)
+        {
+            if(AutomatonInMaze.SELECTED_AUTOMATON != 0)
+            {
+                if (!TableWindows.ContainsKey(AutomatonInMaze.SELECTED_AUTOMATON))
+                {
+                    tableWindow = new TableWindow(AutomatonInMaze.SELECTED_AUTOMATON);
+                    TableWindows.Add(AutomatonInMaze.SELECTED_AUTOMATON, tableWindow);
+                    tableWindow.Show();
+                }
+                else if (!TableWindows[AutomatonInMaze.SELECTED_AUTOMATON].IsActive && TableWindows.ContainsKey(AutomatonInMaze.SELECTED_AUTOMATON))
+                {
+                    TableWindows[AutomatonInMaze.SELECTED_AUTOMATON].Activate();
+                }
+                else
+                {
+                    tableWindow = new TableWindow(AutomatonInMaze.SELECTED_AUTOMATON);
+                    TableWindows.Add(AutomatonInMaze.SELECTED_AUTOMATON, tableWindow);
+                    tableWindow.Show();
+                }
+
+                
+            }
+            else
+            {
+                MessageBox.Show("Укажите автомат");
+            }
+        }
+
+        private void button_set_automaton_start(object sender, RoutedEventArgs e)
+        {
+            if (AutomatonInMaze.SELECTED_AUTOMATON == 0)
+                MessageBox.Show("Укажите автомат", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+            {
+                Main.brushType = Main.BrushType.SET_AUTOMATON;
+            }    
+                
+        }
+
+        private void button_automaton_step(object sender, RoutedEventArgs e)
+        {
+            int result = AutomatonInMaze.MoveAutomaton();
+
+            if (result == 1)
+                MessageBox.Show("Автомат не найден", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
+            else if (result == 2)
+                MessageBox.Show($"Укажите стартовую позицию для Автомата {AutomatonInMaze.SELECTED_AUTOMATON}", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
+            else if (result == 3)
+                MessageBox.Show($"Для Автомата {AutomatonInMaze.SELECTED_AUTOMATON} не найдено путей прохода", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
+            else if (result == 4)
+                MessageBox.Show($"Для Автомата {AutomatonInMaze.SELECTED_AUTOMATON} не найдено состояния для перехода.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
+
+        }
+
+        private void button_all_automaton_step(object sender, RoutedEventArgs e)
+        {
+            currentSelectedAutomaton = AutomatonInMaze.SELECTED_AUTOMATON;
+
+            foreach (KeyValuePair<int, AbstractMachine<ChessMazeInformation, ChessMazeInformation, string>> automaton in AutomatonInMaze.AUTOMATONS_COUNT)
+            {
+                try
+                {
+                    AutomatonInMaze.SELECTED_AUTOMATON = automaton.Key;
+                }
+                catch
+                {
+                    continue;
+                }
+
+                int result = AutomatonInMaze.MoveAutomaton();
+
+                if (result != 0)
+                    continue;
+            }
+
+            AutomatonInMaze.SELECTED_AUTOMATON = currentSelectedAutomaton;
+        }
+
+        private async void button_run_start(object sender, RoutedEventArgs e)
+        {
+            currentSelectedAutomaton = AutomatonInMaze.SELECTED_AUTOMATON;
+            AutomatonInMaze.isRun = true;
+            await Task.Run(() => start_automaton.RunWorkerAsync());
+        }
+
+        private async void button_run_all_start(object sender, RoutedEventArgs e)
+        {
+            currentSelectedAutomaton = AutomatonInMaze.SELECTED_AUTOMATON;
+            AutomatonInMaze.isRunAll = true;
+            await Task.Run(() => start_all_automatons.RunWorkerAsync());
+        }
+
+        private void button_run_stop(object sender, RoutedEventArgs e)
+        {
+            AutomatonInMaze.isRun = false;
+            AutomatonInMaze.isRunAll = false;
+            AutomatonInMaze.SELECTED_AUTOMATON = currentSelectedAutomaton;
+        }
+
+        private void button_switch_automaton_path(object sender, RoutedEventArgs e)
+        {
+            AutomatonInMaze.canPathView = !AutomatonInMaze.canPathView;
+            
+        }
+
+        private void button_set_automaton_speed(object sender, RoutedEventArgs e)
+        {
+            InputBox.Visibility = Visibility.Visible;
+        }
+
+        private void YesButton_Click(object sender, RoutedEventArgs e)
+        {
+            double speed = 1000;
+
+            try
+            {
+                String input = InputTextBox.Text;
+                string converted = "";
+
+                if (input.Contains("."))
+                {
+                    foreach(char symbol in input)
+                    {
+                        if (symbol == '.')
+                        {
+                            converted += ',';
+                            continue;
+                        }
+                        converted += symbol;
+                    }
+                }
+
+                speed = Convert.ToDouble(converted) * 1000;
+
+                AutomatonInMaze.AUTOMATON_SPEED[AutomatonInMaze.SELECTED_AUTOMATON] = Convert.ToInt32(speed);
+
+                InputBox.Visibility = Visibility.Collapsed;
+            }
+            catch
+            {
+                MessageBox.Show("Неверный тип данных! Укажите скорость в секундах.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            InputTextBox.Text = String.Empty;
+        }
+
+        private void NoButton_Click(object sender, RoutedEventArgs e)
+        {
+            InputBox.Visibility = System.Windows.Visibility.Collapsed;
+            InputTextBox.Text = String.Empty;
+        }
+
+        private void AutomatonRun(object sender, DoWorkEventArgs e)
+        {
+            while (AutomatonInMaze.isRun)
+            {
+                int result = AutomatonInMaze.MoveAutomaton();
+
+                if (result != 0)
+                    AutomatonInMaze.isRun = false;
+
+                if (result == 1)
+                    MessageBox.Show("Автомат не найден", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
+                else if (result == 2)
+                    MessageBox.Show($"Укажите стартовую позицию для Автомата {AutomatonInMaze.SELECTED_AUTOMATON}", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
+                else if (result == 3)
+                    MessageBox.Show($"Для Автомата {AutomatonInMaze.SELECTED_AUTOMATON} не найдено путей прохода", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                Thread.Sleep(AutomatonInMaze.AUTOMATON_SPEED[AutomatonInMaze.SELECTED_AUTOMATON]);
+            }
+
+        }
+
+        private void AllAutomatonRun(object sender, DoWorkEventArgs e)
+        {
+            while (AutomatonInMaze.isRunAll)
+            {
+                foreach(KeyValuePair<int, AbstractMachine<ChessMazeInformation, ChessMazeInformation, string>> automaton in AutomatonInMaze.AUTOMATONS_COUNT)
+                {
+                    try
+                    {
+                        AutomatonInMaze.SELECTED_AUTOMATON = automaton.Key;
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+
+                    int result = AutomatonInMaze.MoveAutomaton();
+
+                    if (result != 0)
+                        continue;
+                }
+
+                AutomatonInMaze.SELECTED_AUTOMATON = currentSelectedAutomaton;
+
+                Thread.Sleep(AutomatonInMaze.AUTOMATON_SPEED[AutomatonInMaze.SELECTED_AUTOMATON]);
+            }
+
+        }
+
+
+
+
+        private RadioButton AddAutomatonButton()
+        {
+            int count = AutomatonInMaze.AUTOMATONS_COUNT.Count + 1;
+            if (AutomatonInMaze.AUTOMATONS_COUNT.ContainsKey(count))
+            {
+                count = 1;
+                while(AutomatonInMaze.AUTOMATONS_COUNT.ContainsKey(count))
+                {
+                    count++;
+                }
+                AutomatonInMaze.AUTOMATONS_COUNT.Add(count, null);
+            }
+            else
+                AutomatonInMaze.AUTOMATONS_COUNT.Add(count, null);
+
+            count = AutomatonInMaze.AUTOMATON_SPEED.Count + 1;
+            if (AutomatonInMaze.AUTOMATON_SPEED.ContainsKey(count))
+            {
+                count = 1;
+                while (AutomatonInMaze.AUTOMATON_SPEED.ContainsKey(count))
+                {
+                    count++;
+                }
+                AutomatonInMaze.AUTOMATON_SPEED.Add(count, 1000);
+            }
+            else
+                AutomatonInMaze.AUTOMATON_SPEED.Add(count, 1000);
+
+            RadioButton radioButton = new RadioButton();
+            radioButton.Width = 190;
+            radioButton.Height = 27;
+            radioButton.Content = $"Автомат {count}";
+            radioButton.Name = $"Automaton_{count}";
+            radioButton.Tag = count;
+            radioButton.Checked += radiobutton_checked;
+            radioButton.FontSize = 20;
+
+            return radioButton;
+        }
+
         //-----------------------------------------------------------//
 
         #endregion
@@ -687,27 +998,9 @@ namespace Labyrinth
             isGenerationCallback = false;
         }
 
-        [DisplayName("Входной символ")]
-        public string Input_Single { get; set; }
-        [DisplayName("Вход")]
-        public string Current_State { get; set; }
-        [DisplayName("Выходной символ")]
-        public string Output_Single { get; set; }
-        [DisplayName("Выход")]
-        public string Next_State { get; set; }
-
-        private void set_table_inf()
-        {
-            List<MainWindow> tableList = new List<MainWindow>
-            {
-                new MainWindow {Input_Single = "nwse", Current_State = "q1", Output_Single="n", Next_State="q1"}
-            };
-
-            automaton_table.ItemsSource = tableList;
-
-        }
-
-
         
+
+       
+
     }
 }

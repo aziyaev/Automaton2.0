@@ -42,6 +42,35 @@ public class Pathfinding
         return result;
     }
 
+    public static Dictionary<string, Point> getDirectionsPoint(Point currentPos)
+    {
+        updateNodesData();
+
+        Node automatonNode = nodes[currentPos.X, currentPos.Y];
+
+        List<Node> openSet = new List<Node>();
+
+        openSet.Add(automatonNode);
+
+        Node node = openSet[0];
+
+        Dictionary<string, Node> neighbours = node.getNeighboursCutted();
+
+
+        
+
+        Dictionary<string, Point> directions = new Dictionary<string, Point>();
+
+        foreach (KeyValuePair<string, Node> keyValue in neighbours)
+        {
+            if (keyValue.Value.isBlocked)
+                continue;
+            directions.Add(keyValue.Key ,new Point(keyValue.Value.X, keyValue.Value.Y));
+        }
+
+        return directions;
+    }
+
     public static List<Point> getPoints(Point startPos, Point targetPos)
     {
         updateNodesData();
@@ -204,6 +233,22 @@ public class Pathfinding
                 result.Add(Pathfinding.getNode(X - 1, Y));
             if (check(-1, 1))
                 result.Add(Pathfinding.getNode(X - 1, Y + 1));
+
+            return result;
+        }
+
+        public Dictionary<string, Node> getNeighboursCutted()
+        {
+            Dictionary<string, Node> result = new Dictionary<string, Node>();
+
+            if (check(0, -1))
+                result.Add("n", Pathfinding.getNode(X, Y - 1));
+            if (check(1, 0))
+                result.Add("e", Pathfinding.getNode(X + 1, Y));
+            if (check(0, 1))
+                result.Add("s", Pathfinding.getNode(X, Y + 1));
+            if (check(-1, 0))
+                result.Add("w", Pathfinding.getNode(X - 1, Y));
 
             return result;
         }

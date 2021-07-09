@@ -1,0 +1,10 @@
+Автомат 1
+(n,q1,n,q1)
+(ns,q1,n,q1)
+(es,q1,e,q1)
+(ew,q1,e,q1)
+(esw,q1,e,q1)
+(w,q1,w,q2)
+(ew,q2,w,q2)
+(esw,q2,s,q2)
+(ns,q2,s,q2)

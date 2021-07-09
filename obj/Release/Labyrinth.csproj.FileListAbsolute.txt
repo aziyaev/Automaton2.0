@@ -18,3 +18,31 @@ E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Release\Labyrinth.csproj.GenerateResour
 E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Release\Labyrinth.exe
 E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Release\Labyrinth.pdb
 E:\FH\VSProjects\Labyrinth\Labyrinth\obj\Release\Labyrinth.csprojAssemblyReference.cache
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\bin\Release\Labyrinth.exe.config
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\bin\Release\Labyrinth.exe
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\bin\Release\Labyrinth.pdb
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\bin\Release\AbstractMachine.exe
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\bin\Release\System.ValueTuple.dll
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\bin\Release\AbstractMachine.pdb
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\bin\Release\System.ValueTuple.xml
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Labyrinth.csprojAssemblyReference.cache
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Windows\About.g.cs
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Windows\FunctionDefiner.g.cs
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Windows\MainWindow.g.cs
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Windows\RenameDialog.g.cs
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Windows\TableWindow.g.cs
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Other\App.g.cs
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Labyrinth_MarkupCompile.cache
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Labyrinth_MarkupCompile.lref
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Windows\About.baml
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Windows\FunctionDefiner.baml
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Windows\MainWindow.baml
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Windows\RenameDialog.baml
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Windows\TableWindow.baml
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Labyrinth.g.resources
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Labyrinth.Properties.Resources.resources
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Labyrinth.csproj.GenerateResource.cache
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Labyrinth.csproj.CoreCompileInputs.cache
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Labyrinth.csproj.CopyComplete
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Labyrinth.exe
+C:\Users\Azizbek\Desktop\Labyrinth(финальная версия )\Labyrinth(финальная версия )\Source\Labyrinth\obj\Release\Labyrinth.pdb

@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/buttonplay.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/buttonspeed.png")]
 
 
